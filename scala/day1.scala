@@ -13,15 +13,6 @@ object day1 extends App {
     helper(measurements.head, 0, measurements.tail)
   }
 
-  val source = fromFile("/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day1_input.txt")
-  val inputData = source.getLines.toSeq.map(_.toInt)
-
-  println(inputData.mkString(", "))
-
-  val depth = countDepth(inputData)
-
-  println(depth)
-
   def createWindows(measurements: Seq[Int]): Seq[Int] = {
     @tailrec
     def helper(firstVal: Int, secondVal: Int, thirdVal: Int, acc: Seq[Int], measurements: Seq[Int]): Seq[Int] = {
@@ -31,6 +22,15 @@ object day1 extends App {
 
     helper(measurements.head, measurements.tail.head, measurements.tail.tail.head, Seq.empty, measurements.tail.tail.tail)
   }
+
+  val source = fromFile("/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day1_input.txt")
+  val inputData = source.getLines.toSeq.map(_.toInt)
+
+  println(inputData.mkString(", "))
+
+  val depth = countDepth(inputData)
+
+  println(depth)
 
   val windowed = createWindows(inputData)
 
