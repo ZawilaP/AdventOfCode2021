@@ -12,9 +12,9 @@ object day2 extends App {
 
   def parseInput(lines: Seq[String]): Seq[Directions] = {
     lines.map{
-      case x if x.startsWith("forward") => Forward(x.last.toInt - 48)
-      case x if x.startsWith("down") => Down(x.last.toInt - 48)
-      case x if x.startsWith("up") => Up(x.last.toInt - 48)
+      case x if x.startsWith("forward") => Forward(x.last.asDigit)
+      case x if x.startsWith("down") => Down(x.last.asDigit)
+      case x if x.startsWith("up") => Up(x.last.asDigit)
     }
   }
 
