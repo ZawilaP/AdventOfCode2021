@@ -14,9 +14,9 @@ object day6 extends App {
     val numberOfSevens = el.getOrElse(7, 0L)
     val numberOfZeros = el.getOrElse(0, 0L)
     el.flatMap {
-      case 0 -> c => Map(6 -> (c + numberOfSevens), 8 -> c)
-      case 7 -> c => Map(6 -> (c + numberOfZeros))
-      case n -> c => Map(n - 1 -> c)
+      case 0 -> value => Map(6 -> (value+ numberOfSevens), 8 -> value)
+      case 7 -> value => Map(6 -> (value + numberOfZeros))
+      case x -> value => Map(x - 1 -> value)
     }
   }
 
