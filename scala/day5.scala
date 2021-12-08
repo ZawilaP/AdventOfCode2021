@@ -1,9 +1,7 @@
 import scala.io.Source.fromFile
 
 object day5 extends App {
-  case class Point(x: Int, y: Int) {
-    def equal(a: Point): Boolean = this.x == a.x && this.y == a.y
-  }
+  case class Point(x: Int, y: Int)
 
   case class Line(a: Point, b: Point) {
     def isStraight: Boolean = a.x == b.x || a.y == b.y
