@@ -16,8 +16,6 @@ object day3 extends Exercise {
   case object Oxygen extends Rating
   case object CO2 extends Rating
 
-  case class Input(raw: Vector[String], transposed: Vector[Vector[Bit]])
-
   private def parseInput: Vector[Vector[Bit]] = {
     val source = fromFile(path)
     val input = source.getLines().toVector.transpose.map(_.map{case '1' => One
