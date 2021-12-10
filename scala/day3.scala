@@ -46,12 +46,13 @@ object day3 extends Exercise {
         Integer.parseInt(transposedInput.flatten.mkString, 2)
       } else {
         val column = transposedInput(pointer)
+        val length = column.length / 2
         val oneCount = column.count(_ == One)
         val zeroCount = column.count(_ == Zero)
         val charToFilter = rating match {
-          case Oxygen if oneCount == zeroCount || oneCount > column.length / 2 => Zero
+          case Oxygen if oneCount == zeroCount || oneCount > length => Zero
           case Oxygen => One
-          case CO2 if oneCount == zeroCount || oneCount > column.length / 2  => One
+          case CO2 if oneCount == zeroCount || oneCount > length  => One
           case CO2 => Zero
         }
         val filtered = transposedInput.transpose.filterNot(row => row(pointer) == charToFilter).transpose
