@@ -1,7 +1,7 @@
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 
-object day9 extends App {
+object day9 extends Exercise {
 
   type Fields = Map[Field, Int]
 
@@ -15,7 +15,7 @@ object day9 extends App {
     }
 
     def belowNeighbours(fields: Fields): Boolean = {
-      neighbours.forall(this.belowNeighbour(_, fields))
+      neighbours.toSet.forall(this.belowNeighbour(_, fields))
     }
 
     private def belowNeighbour(neighbour: Field, fields: Fields): Boolean = {
@@ -39,7 +39,7 @@ object day9 extends App {
     }
   }
 
-  private def parseInput(path: String): Fields = {
+  private def parseInput: Fields = {
     val source = fromFile(path)
     val input = source.getLines().toList
     val fields = {
@@ -60,9 +60,7 @@ object day9 extends App {
     parsedInput.toSeq.filter(_._1.belowNeighbours(input)).map(_._1.findBasin(parsedInput)).sorted.takeRight(3).product
   }
 
-  val path = "/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day9_input.txt"
-
-  val input = parseInput(path)
+  val input = parseInput
 
   println(s"Part 1: ${part1(input)}")
   println(s"Part 2: ${part2(input)}")

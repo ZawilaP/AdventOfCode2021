@@ -1,7 +1,7 @@
 import scala.annotation.tailrec
 import scala.io.Source._
 
-object day1 extends App {
+object day1 extends Exercise {
   private def countDepth(measurements: Seq[Int]): Int = {
     @tailrec
     def helper(previousVal: Int, acc: Int, measurements: Seq[Int]): Int = {
@@ -23,18 +23,14 @@ object day1 extends App {
     helper(measurements.head, measurements.tail.head, measurements.tail.tail.head, Seq.empty, measurements.tail.tail.tail)
   }
 
-  private def parseInput(path: String): Seq[Int] = {
+  private def parseInput: Seq[Int] = {
     val source = fromFile(path)
     source.getLines.toSeq.map(_.toInt)
   }
 
-  val inputData = parseInput("/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day1_input.txt")
-  val depth = countDepth(inputData)
-
-  println(depth)
-
+  val inputData = parseInput
   val windowed = createWindows(inputData)
-  val windowedDepth = countDepth(windowed)
 
-  println(windowedDepth)
+  println(s"Part 1: ${countDepth(inputData)}")
+  println(s"Part 2: ${countDepth(windowed)}")
 }

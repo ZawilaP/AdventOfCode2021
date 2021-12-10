@@ -1,8 +1,9 @@
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 
-object day6 extends App {
-  private def parseInput(path: String): Map[Int, Long] = {
+object day6 extends Exercise {
+
+  private def parseInput: Map[Int, Long] = {
     val source = fromFile(path)
 
     val parsedSource = source.getLines().flatMap(_.split(",")).map(_.toInt).toList
@@ -14,9 +15,9 @@ object day6 extends App {
     val numberOfSevens = el.getOrElse(7, 0L)
     val numberOfZeros = el.getOrElse(0, 0L)
     el.flatMap {
-      case 0 -> value => Map(6 -> (value+ numberOfSevens), 8 -> value)
+      case 0 -> value => Map(6 -> (value + numberOfSevens), 8 -> value)
       case 7 -> value => Map(6 -> (value + numberOfZeros))
-      case x -> value => Map(x - 1 -> value)
+      case n -> value => Map(n - 1 -> value)
     }
   }
 
@@ -28,12 +29,11 @@ object day6 extends App {
     }
   }
 
-  val path = "/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day6_input.txt"
-  val parsedInput = parseInput(path)
+  val parsedInput = parseInput
 
   val part1 = calculatePopulation(parsedInput, 80)
   val part2 = calculatePopulation(parsedInput, 256)
 
-  println(part1)
-  println(part2)
+  println(s"Part 1: $part1")
+  println(s"Part 2: $part2")
 }

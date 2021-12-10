@@ -1,11 +1,9 @@
 import scala.io.Source.fromFile
 import scala.math.{abs, floor}
 
-object day7 extends App {
+object day7 extends Exercise {
 
-  val path = "/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day7_input.txt"
-
-  private def parseInput(path: String): List[Int] = {
+  private def parseInput: List[Int] = {
     val source = fromFile(path)
     val parsedSource = source.getLines.next().split(",").map(_.toInt).toList
     source.close()
@@ -31,11 +29,8 @@ object day7 extends App {
     numbers.foldLeft(0)((acc, curr) => acc + gaussSum(abs(curr - avg)))
   }
 
-  val parsedInput = parseInput(path)
+  val parsedInput = parseInput
 
-  val distance = part1(parsedInput)
-  val naturalSumFuelUsage = part2(parsedInput)
-
-  println(distance)
-  println(naturalSumFuelUsage)
+  println(s"Part 1: ${part1(parsedInput)}")
+  println(s"Part 2: ${part2(parsedInput)}")
 }

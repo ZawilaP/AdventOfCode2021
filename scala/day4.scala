@@ -1,7 +1,7 @@
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 
-object day4 extends App {
+object day4 extends Exercise {
 
   val boardSize = 5
 
@@ -9,8 +9,8 @@ object day4 extends App {
 
   case class Board(visited: Set[Field], notVisited: Map[Int, Field]) {
     def wins: Boolean = {
-      val rows = visited.groupBy(_.row).exists(_._2.size == 5)
-      val cols = visited.groupBy(_.col).exists(_._2.size == 5)
+      val rows = visited.groupBy(_.row).exists(_._2.size == boardSize)
+      val cols = visited.groupBy(_.col).exists(_._2.size == boardSize)
       rows || cols
     }
 
@@ -20,9 +20,7 @@ object day4 extends App {
       } else this
     }
 
-    def calculateSumOfNotVisited: Int = {
-      notVisited.keys.sum
-    }
+    def calculateSumOfNotVisited: Int = notVisited.keys.sum
   }
 
   object BoardParser {
@@ -31,13 +29,13 @@ object day4 extends App {
     }
 
     private def parseBoards(input: List[String]): List[Board] = {
-      val boards = input.grouped(5).toList
+      val boards = input.grouped(boardSize).toList
       val parsedNumbers = boards.map(_.flatMap(_.split(" ").filter(_ != "").toList))
       val fullyParsed = parsedNumbers.map(x => x.zipWithIndex).map(x => x.flatMap(y => Map(y._1.toInt -> Field(y._2 / boardSize, y._2 % boardSize))))
       fullyParsed.map(x => Board(Set.empty[Field], x.toMap))
     }
 
-    def parseInput(path: String): (List[Int], List[Board]) = {
+    def parseInput: (List[Int], List[Board]) = {
       val source = fromFile(path)
       val nonEmptyLines = source.getLines().filter(_.nonEmpty).toList
 
@@ -74,12 +72,8 @@ object day4 extends App {
 
   import BoardParser.parseInput
 
-  val path = "/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day4_input.txt"
+  val (numbers, boards) = parseInput
 
-  val (numbers, boards) = parseInput(path)
-  val firstWinning = part1(numbers, boards)
-  val lastWinning = part2(numbers, boards)
-
-  println(firstWinning)
-  println(lastWinning)
+  println(s"Part 1: ${part1(numbers, boards)}")
+  println(s"Part 2: ${part2(numbers, boards)}")
 }

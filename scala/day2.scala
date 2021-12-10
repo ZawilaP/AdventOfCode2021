@@ -1,7 +1,7 @@
 import scala.annotation.tailrec
 import scala.io.Source._
 
-object day2 extends App {
+object day2 extends Exercise {
 
   case class Distance(horizontal: Int, vertical: Int)
 
@@ -10,15 +10,18 @@ object day2 extends App {
   case class Up(length: Int) extends Directions
   case class Down(length: Int) extends Directions
 
-  def parseInput(lines: Seq[String]): Seq[Directions] = {
-    lines.map{
+  private def parseInput: Seq[Directions] = {
+    val source = fromFile(path)
+    val input = source.getLines.toSeq.map{
       case x if x.startsWith("forward") => Forward(x.last.asDigit)
       case x if x.startsWith("down") => Down(x.last.asDigit)
       case x if x.startsWith("up") => Up(x.last.asDigit)
     }
+    source.close()
+    input
   }
 
-  def calculatePosition(directions: Seq[Directions]): Distance = {
+  private def calculatePosition(directions: Seq[Directions]): Distance = {
     @tailrec
     def helper(horizontal: Int, vertical: Int, acc: Seq[Directions]): Distance = {
       if (acc.isEmpty) Distance(horizontal, vertical)
@@ -36,9 +39,7 @@ object day2 extends App {
 
   def calculateTotalDistance(distance: Distance): Int = distance.horizontal * distance.vertical
 
-  def getFinalResult(lines: Seq[String]): Int = {
-    (parseInput _ andThen calculatePosition andThen calculateTotalDistance) (lines)
-  }
+
 
   def calculateAimedPosition(directions: Seq[Directions]): Distance = {
     @tailrec
@@ -56,18 +57,16 @@ object day2 extends App {
     helper(0, 0, 0, directions)
   }
 
-  def getAimedResult(lines: Seq[String]): Int = {
-    (parseInput _ andThen calculateAimedPosition andThen calculateTotalDistance) (lines)
+  def part1(lines: Seq[Directions]): Int = {
+    (calculatePosition _ andThen calculateTotalDistance) (lines)
   }
 
-  val source = fromFile("/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day2_input.txt")
-  val inputData = source.getLines.toSeq
+  def part2(lines: Seq[Directions]): Int = {
+    (calculateAimedPosition _ andThen calculateTotalDistance) (lines)
+  }
 
-  val result = getFinalResult(inputData)
-  println(s"Showing final: ${result}")
+  val parsedInput = parseInput
 
-  val aimedResult = getAimedResult(inputData)
-  println(s"Showing final: ${aimedResult}")
-
-  source.close()
+  println(s"Part 1: ${part1(parsedInput)}")
+  println(s"Part 2: ${part2(parsedInput)}")
 }

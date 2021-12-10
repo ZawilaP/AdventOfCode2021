@@ -1,7 +1,9 @@
 import scala.io.Source.fromFile
 
-object day5 extends App {
-  case class Point(x: Int, y: Int)
+object day5 extends Exercise {
+  case class Point(x: Int, y: Int) {
+    def equal(a: Point): Boolean = this.x == a.x && this.y == a.y
+  }
 
   case class Line(a: Point, b: Point) {
     def isStraight: Boolean = a.x == b.x || a.y == b.y
@@ -20,7 +22,7 @@ object day5 extends App {
     }
   }
 
-  private def parseInput(path: String): List[Line] = {
+  private def parseInput: List[Line] = {
     val source = fromFile(path)
     val parsedSource = source.getLines().toList.map(_.split(",| -> ")).map {
       case Array(x1: String, y1: String, x2: String, y2: String) => Line(Point(x1.toInt, y1.toInt), Point(x2.toInt, y2.toInt))
@@ -37,11 +39,11 @@ object day5 extends App {
     }).flatMap(_.points).groupBy(identity).count(_._2.size > 1)
   }
 
-  val parsedInput = parseInput("/Users/piotrzawila-niedzwiecki/IdeaProjects/advent_of_code/data/day5_input.txt")
+  val parsedInput = parseInput
 
-  val straightCount = calculateCount(parsedInput, straight = true)
-  val nonStraightCount = calculateCount(parsedInput, straight = false)
+  val part1 = calculateCount(parsedInput, straight = true)
+  val part2 = calculateCount(parsedInput, straight = false)
 
-  println(s"Showing straightCount: $straightCount") // 1626
-  println(s"Showing nonStraightCount: ${nonStraightCount}") // 5998
+  println(s"Part 1: $part1")
+  println(s"Part 2: $part2")
 }
