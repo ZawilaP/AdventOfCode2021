@@ -35,8 +35,8 @@ object day3 extends Exercise {
       case Zero => One
     }
 
-    parseInt(gamma.map(_.toString).mkString, 2) *
-      parseInt(epsilon.map(_.toString).mkString, 2)
+    parseInt(gamma.mkString, 2) *
+      parseInt(epsilon.mkString, 2)
   }
 
   private def part2(transposed: Vector[Vector[Bit]]): Int = {
