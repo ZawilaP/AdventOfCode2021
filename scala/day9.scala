@@ -15,7 +15,7 @@ object day9 extends App {
     }
 
     def belowNeighbours(fields: Fields): Boolean = {
-      neighbours.toSet.forall(this.belowNeighbour(_, fields))
+      neighbours.forall(this.belowNeighbour(_, fields))
     }
 
     private def belowNeighbour(neighbour: Field, fields: Fields): Boolean = {
