@@ -43,10 +43,10 @@ object day11 extends Exercise {
     }
 
     @tailrec
-    def indexWhenAllFlash(fields: Fields, steps: Int, acc: List[Fields]): Int = {
-        if (acc.head.values.forall(_ == 0)) steps
+    def indexWhenAllFlash(fields: Fields, steps: Int): Int = {
+        if (fields.values.forall(_ == 0)) steps
         else {
-          indexWhenAllFlash(fields, steps + 1, acc.prepended(getNextFields(acc.head)))
+          indexWhenAllFlash(getNextFields(fields), steps + 1)
         }
     }
   }
@@ -69,7 +69,7 @@ object day11 extends Exercise {
   }
 
   private def part2(input: Fields): Int = {
-    indexWhenAllFlash(input, 0, List(input))
+    indexWhenAllFlash(input, 0)
   }
 
   val input = parseInput
