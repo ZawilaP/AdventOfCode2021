@@ -19,14 +19,12 @@ object day10 extends Exercise {
   private def parseInput: Input = {
     @tailrec
     def helper(value: String, acc: List[Char]): InputType = {
-      if (value.isEmpty) Valid(acc)
-      else {
-        (value.head, acc) match {
-          case (_, y) if y.isEmpty => helper(value.tail, value.head :: acc)
-          case (x, y) if bracketsMapping.contains(x) && y.head != bracketsMapping(x) => Invalid(x)
-          case (x, y) if bracketsMapping.contains(x) && y.head == bracketsMapping(x) => helper(value.tail, y.tail)
-          case (_, _) => helper(value.tail, value.head :: acc)
-        }
+      (value, acc) match {
+        case (x, y) if x.isEmpty => Valid(y)
+        case (_, y) if y.isEmpty => helper(value.tail, value.head :: acc)
+        case (x, y) if bracketsMapping.contains(x.head) && y.head != bracketsMapping(x.head) => Invalid(x.head)
+        case (x, y) if bracketsMapping.contains(x.head) && y.head == bracketsMapping(x.head) => helper(value.tail, y.tail)
+        case (_, _) => helper(value.tail, value.head :: acc)
       }
     }
 
