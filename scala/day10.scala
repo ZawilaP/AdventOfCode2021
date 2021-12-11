@@ -10,7 +10,11 @@ object day10 extends Exercise {
 
   case class Input(valid: Seq[Valid], invalid: Seq[Invalid])
 
-  private val bracketsMapping = Map(')' -> '(', ']' -> '[', '}' -> '{', '>' -> '<')
+  private val bracketsMapping = Map(
+    ')' -> '(',
+    ']' -> '[',
+    '}' -> '{',
+    '>' -> '<')
 
   private def parseInput: Input = {
     @tailrec
@@ -34,8 +38,16 @@ object day10 extends Exercise {
     Input(filter[Valid](input), filter[Invalid](input))
   }
 
-  private val part1Scoring = Map(')' -> 3, ']' -> 57, '}' -> 1197, '>' -> 25137)
-  private val part2Scoring = Map('(' -> 1L, '[' -> 2L, '{' -> 3L, '<' -> 4L)
+  private val part1Scoring = Map(
+    ')' -> 3,
+    ']' -> 57,
+    '}' -> 1197,
+    '>' -> 25137)
+  private val part2Scoring = Map(
+    '(' -> 1L,
+    '[' -> 2L,
+    '{' -> 3L,
+    '<' -> 4L)
 
   private def part1(input: Seq[Invalid]): Int = {
     input.map(x => part1Scoring(x.value)).sum
