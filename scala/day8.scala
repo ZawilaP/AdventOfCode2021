@@ -2,7 +2,7 @@ import scala.io.Source.fromFile
 
 object day8 extends Exercise {
 
-  implicit class IntOps(value: String) {
+  implicit class StringOps(value: String) {
     def containsAllElements(other: String): Boolean = other.map(value.contains(_)).reduce(_ && _)
   }
 
