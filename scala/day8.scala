@@ -25,13 +25,13 @@ object day8 extends Exercise {
   private def part2(input: Seq[TrainAndTest]): Int = {
     /**
      * String of length 5 can be either 2, 3 or 5. In this group only 5 has both upper left element and center, which
-     * number can be derived from 4 and 1. Furthermore 3 contains 1, but 2 doesn't.
+     * letter can be derived from 4 and 1. Furthermore 3 contains 1, but 2 doesn't.
      *
      * String of length 6 can be either 0, 6, 9. Similarly, in this set, only 0 doesn't have center element and
      * 6 doesn't contain 1, whilst 9 does.
      */
     def infer(input: TrainAndTest): Int = {
-      input.train.sortBy(x => x.length) match {
+      input.train.sortBy(_.length) match {
         case Seq(one, seven, four, fiveEl1, fiveEl2, fiveEl3, sixEl1, sixEl2, sixEl3, eight) => {
           val centerUpperLeft = four.diff(one)
           val (five, twoThree) = List(fiveEl1, fiveEl2, fiveEl3).partition(_.containsAllElements(centerUpperLeft))
@@ -41,7 +41,7 @@ object day8 extends Exercise {
 
           val mapping = List(zero.head, one, two.head, three.head, four, five.head, six.head, seven, eight, nine.head).
             map(_.sorted).zipWithIndex.toMap
-          input.test.map(_.sorted).map(mapping).mkString.toInt
+          input.test.map(x => mapping(x.sorted)).mkString.toInt
         }
       }
     }
