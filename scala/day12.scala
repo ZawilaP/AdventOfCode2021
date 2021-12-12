@@ -21,11 +21,11 @@ object day12 extends Exercise {
   type Graph = Set[Passage]
   object Graph {
     @tailrec
-    def findPath(paths: Set[Path], pathFilter: AllowedVisits): Set[Path] = {
+    def findPath(input: Graph, paths: Set[Path], pathFilter: AllowedVisits): Set[Path] = {
       val updatedPath: Set[Path] = paths.filter(!_.head.isEnd)
         .flatMap(path => path.head.neighbours(input).map(path.prepended))
         .filter(pathFilter) ++ paths
-      if (updatedPath == paths) paths.filter(_.head.isEnd) else findPath(updatedPath, pathFilter)
+      if (updatedPath == paths) paths.filter(_.head.isEnd) else findPath(input, updatedPath, pathFilter)
     }
   }
 
@@ -52,8 +52,8 @@ object day12 extends Exercise {
     parsedInput
   }
 
-  private def part1(input: Graph): Int = findPath(Set(List(Cave("start"))), OneVisit).size
-  private def part2(input: Graph): Int = findPath(Set(List(Cave("start"))), TwoVisits).size
+  private def part1(input: Graph): Int = findPath(input, Set(List(Cave("start"))), OneVisit).size
+  private def part2(input: Graph): Int = findPath(input, Set(List(Cave("start"))), TwoVisits).size
 
   val input = parseInput
 
