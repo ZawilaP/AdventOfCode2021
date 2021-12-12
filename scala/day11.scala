@@ -3,7 +3,7 @@ import scala.io.Source.fromFile
 
 object day11 extends Exercise {
 
-  private def parseInput: Fields = {
+  private def parseInput: Fields = { // todo: create a Read[A] class that will allow parsing all the inputs, as this is duplicated
     val source = fromFile(path)
     val input = source.getLines().toList
     val fields = {
