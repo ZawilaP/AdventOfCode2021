@@ -18,6 +18,19 @@ object day12 extends Exercise {
     }
   }
 
+  case class Cave(value: String) {
+    def isUpperCase: Boolean = value.head.isUpper
+    def isLowerCase: Boolean = !isUpperCase
+    def isStart: Boolean = value == "start"
+    def isEnd: Boolean = value == "end"
+
+    def neighbours(graph: Graph): Neighbours = graph.flatMap(_.otherCave(this))
+  }
+
+  case class Passage(in: Cave, out: Cave) {
+    def otherCave(other: Cave): Option[Cave] = if (in == other) Some(out) else if (out == other) Some(in) else None
+  }
+
   type Graph = Set[Passage]
   object Graph {
     @tailrec
@@ -31,19 +44,6 @@ object day12 extends Exercise {
 
   type Path = List[Cave]
   type Neighbours = Set[Cave]
-
-  case class Cave(value: String) {
-    def isUpperCase: Boolean = value.head.isUpper
-    def isLowerCase: Boolean = !isUpperCase
-    def isStart: Boolean = value == "start"
-    def isEnd: Boolean = value == "end"
-
-    def neighbours(graph: Graph): Neighbours = graph.flatMap(_.otherCave(this))
-  }
-
-  case class Passage(in: Cave, out: Cave) {
-    def otherCave(other: Cave): Option[Cave] = if (in == other) Some(out) else if (out == other) Some(in) else None
-  }
 
   private def parseInput: Graph = { // todo: create a Read[A] class that will allow parsing all the inputs
     val source = fromFile(path)

@@ -14,10 +14,9 @@ object day6 extends Exercise {
 
     val parsedSource = source.getLines().flatMap(_.split(",")).map(_.toInt).toList
     source.close()
-    val valueCounts = parsedSource.groupMapReduce(identity)(_ => 1L)(_ + _)
-    PopulationCounts(valueCounts.getOrElse(0, 0L), valueCounts.getOrElse(1, 0L), valueCounts.getOrElse(2, 0L),
-      valueCounts.getOrElse(3, 0L), valueCounts.getOrElse(4, 0L), valueCounts.getOrElse(5, 0L),
-      valueCounts.getOrElse(6, 0L), valueCounts.getOrElse(7, 0L), valueCounts.getOrElse(8, 0L))
+    val valueCounts = parsedSource.groupMapReduce(identity)(_ => 1L)(_ + _).withDefaultValue(0L)
+    PopulationCounts(valueCounts(0), valueCounts(1), valueCounts(2), valueCounts(3), valueCounts(4),
+      valueCounts(5), valueCounts(6), valueCounts(7), valueCounts(8))
   }
 
   @tailrec
