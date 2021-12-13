@@ -2,6 +2,12 @@ import scala.annotation.tailrec
 import scala.io.Source._
 
 object day1 extends Exercise {
+
+  private def parseInput: Seq[Int] = {
+    val source = fromFile(path)
+    source.getLines.toSeq.map(_.toInt)
+  }
+
   private def countDepth(measurements: Seq[Int]): Int = {
     @tailrec
     def helper(previousVal: Int, acc: Int, measurements: Seq[Int]): Int = {
@@ -21,11 +27,6 @@ object day1 extends Exercise {
     }
 
     helper(measurements.head, measurements.tail.head, measurements.tail.tail.head, Seq.empty, measurements.tail.tail.tail)
-  }
-
-  private def parseInput: Seq[Int] = {
-    val source = fromFile(path)
-    source.getLines.toSeq.map(_.toInt)
   }
 
   val inputData = parseInput

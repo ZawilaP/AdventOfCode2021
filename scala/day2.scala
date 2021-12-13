@@ -3,13 +3,6 @@ import scala.io.Source._
 
 object day2 extends Exercise {
 
-  case class Distance(horizontal: Int, vertical: Int)
-
-  trait Directions
-  case class Forward(length: Int) extends Directions
-  case class Up(length: Int) extends Directions
-  case class Down(length: Int) extends Directions
-
   private def parseInput: Seq[Directions] = {
     val source = fromFile(path)
     val input = source.getLines.toSeq.map{
@@ -20,6 +13,13 @@ object day2 extends Exercise {
     source.close()
     input
   }
+
+  case class Distance(horizontal: Int, vertical: Int)
+
+  sealed trait Directions
+  case class Forward(length: Int) extends Directions
+  case class Up(length: Int) extends Directions
+  case class Down(length: Int) extends Directions
 
   private def calculatePosition(directions: Seq[Directions]): Distance = {
     @tailrec

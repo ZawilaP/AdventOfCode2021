@@ -4,7 +4,7 @@ import scala.reflect.ClassTag
 
 object day10 extends Exercise {
 
-  trait InputType
+  sealed trait InputType
   case class Valid(value: Seq[Char]) extends InputType
   case class Invalid(value: Char) extends InputType
 
@@ -28,7 +28,7 @@ object day10 extends Exercise {
       }
     }
 
-    def filter[T : ClassTag](data: Seq[_]): Seq[T] = data collect { case t: T => t }
+    def filter[T: ClassTag](data: Seq[_]): Seq[T] = data collect { case t: T => t }
 
     val source = fromFile(path)
     val input = source.getLines().toSeq.map(helper(_, List.empty[Char]))

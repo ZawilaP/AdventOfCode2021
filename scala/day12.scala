@@ -5,6 +5,13 @@ import scala.io.Source.fromFile
 
 object day12 extends Exercise {
 
+  private def parseInput: Graph = { // todo: create a Read[A] class that will allow parsing all the inputs
+    val source = fromFile(path)
+    val parsedInput = source.getLines.map(_.split("-").map(Cave)).map(x => Passage(x.head, x.tail.head)).toSet
+    source.close()
+    parsedInput
+  }
+
   type AllowedVisits = Path => Boolean
   case object OneVisit extends AllowedVisits {
     def apply(path: Path): Boolean = path.head.isUpperCase || !path.tail.contains(path.head)
@@ -44,13 +51,6 @@ object day12 extends Exercise {
 
   type Path = List[Cave]
   type Neighbours = Set[Cave]
-
-  private def parseInput: Graph = { // todo: create a Read[A] class that will allow parsing all the inputs
-    val source = fromFile(path)
-    val parsedInput = source.getLines.map(_.split("-").map(Cave)).map(x => Passage(x.head, x.tail.head)).toSet
-    source.close()
-    parsedInput
-  }
 
   private def part1(input: Graph): Int = findPath(input, Set(List(Cave("start"))), OneVisit).size
   private def part2(input: Graph): Int = findPath(input, Set(List(Cave("start"))), TwoVisits).size

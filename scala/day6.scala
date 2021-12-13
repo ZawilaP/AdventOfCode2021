@@ -3,12 +3,6 @@ import scala.io.Source.fromFile
 
 object day6 extends Exercise {
 
-  case class PopulationCounts(zeros: Long, ones: Long, twos: Long, threes: Long, fours: Long,
-                              fives: Long, sixes: Long, sevens: Long, eights: Long) {
-    def sum: Long = zeros + ones + twos + threes + fours + fives + sixes + sevens + eights
-    def update: PopulationCounts = PopulationCounts(ones, twos, threes, fours, fives, sixes, sevens + zeros, eights, zeros)
-  }
-
   private def parseInput: PopulationCounts = {
     val source = fromFile(path)
 
@@ -17,6 +11,12 @@ object day6 extends Exercise {
     val valueCounts = parsedSource.groupMapReduce(identity)(_ => 1L)(_ + _).withDefaultValue(0L)
     PopulationCounts(valueCounts(0), valueCounts(1), valueCounts(2), valueCounts(3), valueCounts(4),
       valueCounts(5), valueCounts(6), valueCounts(7), valueCounts(8))
+  }
+
+  case class PopulationCounts(zeros: Long, ones: Long, twos: Long, threes: Long, fours: Long,
+                              fives: Long, sixes: Long, sevens: Long, eights: Long) {
+    def sum: Long = zeros + ones + twos + threes + fours + fives + sixes + sevens + eights
+    def update: PopulationCounts = PopulationCounts(ones, twos, threes, fours, fives, sixes, sevens + zeros, eights, zeros)
   }
 
   @tailrec

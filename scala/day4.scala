@@ -3,26 +3,6 @@ import scala.io.Source.fromFile
 
 object day4 extends Exercise {
 
-  val boardSize = 5
-
-  case class Field(row: Int, col: Int)
-
-  case class Board(visited: Set[Field], notVisited: Map[Int, Field]) {
-    def wins: Boolean = {
-      val rows = visited.groupBy(_.row).exists(_._2.size == boardSize)
-      val cols = visited.groupBy(_.col).exists(_._2.size == boardSize)
-      rows || cols
-    }
-
-    def markNumber(number: Int): Board = {
-      if (notVisited.contains(number)) {
-        Board(visited + notVisited(number), notVisited - number)
-      } else this
-    }
-
-    def calculateSumOfNotVisited: Int = notVisited.keys.sum
-  }
-
   object BoardParser {
     private def parseNumbers(input: String): List[Int] = {
       input.split(",").map(_.toInt).toList
@@ -44,6 +24,26 @@ object day4 extends Exercise {
       source.close
       (numbers, boards)
     }
+  }
+
+  val boardSize = 5
+
+  case class Field(row: Int, col: Int)
+
+  case class Board(visited: Set[Field], notVisited: Map[Int, Field]) {
+    def wins: Boolean = {
+      val rows = visited.groupBy(_.row).exists(_._2.size == boardSize)
+      val cols = visited.groupBy(_.col).exists(_._2.size == boardSize)
+      rows || cols
+    }
+
+    def markNumber(number: Int): Board = {
+      if (notVisited.contains(number)) {
+        Board(visited + notVisited(number), notVisited - number)
+      } else this
+    }
+
+    def calculateSumOfNotVisited: Int = notVisited.keys.sum
   }
 
   private def part1(numbers: List[Int], boards: List[Board]): Int = {

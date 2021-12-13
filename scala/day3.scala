@@ -4,18 +4,6 @@ import scala.io.Source.fromFile
 
 object day3 extends Exercise {
 
-  trait Bit
-  case object One extends Bit {
-    override def toString: String = "1"
-  }
-  case object Zero extends Bit {
-    override def toString: String = "0"
-  }
-
-  trait Rating
-  case object Oxygen extends Rating
-  case object CO2 extends Rating
-
   private def parseInput: Vector[Vector[Bit]] = {
     val source = fromFile(path)
     val input = source.getLines().toVector.transpose.map(_.map{case '1' => One
@@ -23,6 +11,18 @@ object day3 extends Exercise {
     source.close()
     input
   }
+
+  sealed trait Bit
+  case object One extends Bit {
+    override def toString: String = "1"
+  }
+  case object Zero extends Bit {
+    override def toString: String = "0"
+  }
+
+  sealed trait Rating
+  case object Oxygen extends Rating
+  case object CO2 extends Rating
 
   def part1(transposed: Vector[Vector[Bit]]): Int = {
     val length = transposed.head.length / 2

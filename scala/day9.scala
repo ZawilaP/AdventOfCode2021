@@ -3,6 +3,19 @@ import scala.io.Source.fromFile
 
 object day9 extends Exercise {
 
+  private def parseInput: Fields = {
+    val source = fromFile(path)
+    val input = source.getLines().toList
+    val fields = {
+      for {
+        (line, row) <- input.zipWithIndex
+        (height, col) <- line.zipWithIndex
+      } yield Field(row, col) -> height.asDigit
+    }.toMap
+
+    fields
+  }
+
   type Fields = Map[Field, Int]
 
   case class Neighbours(left: Field, right: Field, above: Field, below: Field) {
@@ -37,19 +50,6 @@ object day9 extends Exercise {
 
       helper(Set(this)).size
     }
-  }
-
-  private def parseInput: Fields = {
-    val source = fromFile(path)
-    val input = source.getLines().toList
-    val fields = {
-      for {
-        (line, row) <- input.zipWithIndex
-        (height, col) <- line.zipWithIndex
-      } yield Field(row, col) -> height.asDigit
-    }.toMap
-
-    fields
   }
 
   private def part1(parsedInput: Fields): Int = {

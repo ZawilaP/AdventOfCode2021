@@ -1,6 +1,16 @@
 import scala.io.Source.fromFile
 
 object day5 extends Exercise {
+
+  private def parseInput: List[Line] = {
+    val source = fromFile(path)
+    val parsedSource = source.getLines().toList.map(_.split(",| -> ")).map {
+      case Array(x1: String, y1: String, x2: String, y2: String) => Line(Point(x1.toInt, y1.toInt), Point(x2.toInt, y2.toInt))
+    }
+    source.close()
+    parsedSource
+  }
+
   case class Point(x: Int, y: Int) {
     def equal(a: Point): Boolean = this.x == a.x && this.y == a.y
   }
@@ -22,14 +32,6 @@ object day5 extends Exercise {
     }
   }
 
-  private def parseInput: List[Line] = {
-    val source = fromFile(path)
-    val parsedSource = source.getLines().toList.map(_.split(",| -> ")).map {
-      case Array(x1: String, y1: String, x2: String, y2: String) => Line(Point(x1.toInt, y1.toInt), Point(x2.toInt, y2.toInt))
-    }
-    source.close()
-    parsedSource
-  }
 
   private def calculateCount(input: List[Line], straight: Boolean): Int = {
     (if (straight) {
