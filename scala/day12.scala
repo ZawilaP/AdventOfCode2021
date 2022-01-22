@@ -1,4 +1,8 @@
-import day12.Graph.findPath
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+import solutions.day12.Graph.findPath
 
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
@@ -30,7 +34,6 @@ object day12 extends Exercise {
     def isLowerCase: Boolean = !isUpperCase
     def isStart: Boolean = value == "start"
     def isEnd: Boolean = value == "end"
-
     def neighbours(graph: Graph): Neighbours = graph.flatMap(_.otherCave(this))
   }
 
@@ -39,6 +42,7 @@ object day12 extends Exercise {
   }
 
   type Graph = Set[Passage]
+
   object Graph {
     @tailrec
     def findPath(input: Graph, paths: Set[Path], pathFilter: AllowedVisits): Set[Path] = {
@@ -53,11 +57,12 @@ object day12 extends Exercise {
   type Neighbours = Set[Cave]
 
   private def part1(input: Graph): Int = findPath(input, Set(List(Cave("start"))), OneVisit).size
+
   private def part2(input: Graph): Int = findPath(input, Set(List(Cave("start"))), TwoVisits).size
 
   val input = parseInput
 
-  println(s"Part 1: ${part1(input)}")
-  println(s"Part 2: ${part2(input)}")
+  println(s"Part 1: ${timeIt {part1(input)}}")
+  println(s"Part 2: ${timeIt {part2(input)}}")
 
 }

@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 import scala.reflect.ClassTag
@@ -58,6 +63,6 @@ object day10 extends Exercise {
 
   val input = parseInput
 
-  println(s"Part 1: ${part1(input.invalid)}")
-  println(s"Part 2: ${part2(input.valid)}")
+  println(s"Part 1: ${timeIt {part1(input.invalid)}}")
+  println(s"Part 2: ${timeIt {part2(input.valid)}}")
 }

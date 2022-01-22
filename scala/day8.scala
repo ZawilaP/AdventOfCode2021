@@ -1,10 +1,15 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.io.Source.fromFile
 
 object day8 extends Exercise {
 
   private def parseInput: Seq[TrainAndTest] = {
     val source = fromFile(path)
-    val parsed = source.getLines.toList.map(_.split(" \\| ")).map{
+    val parsed = source.getLines.toList.map(_.split(" \\| ")).map {
       case Array(l, r) => TrainAndTest(l.split(" ").toSeq, r.split(" ").toSeq)
     }
     source.close()
@@ -50,6 +55,6 @@ object day8 extends Exercise {
 
   val parsedInput = parseInput
 
-  println(s"Part 1: ${part1(parsedInput)}")
-  println(s"Part 2: ${part2(parsedInput)}")
+  println(s"Part 1: ${timeIt {part1(parsedInput) }}")
+  println(s"Part 2: ${timeIt {part2(parsedInput) }}")
 }

@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.io.Source.fromFile
 import scala.math.{abs, floor}
 
@@ -16,7 +21,7 @@ object day7 extends Exercise {
   }
 
   def gaussSum(num: Int): Int = {
-    num * (num+1) / 2
+    num * (num + 1) / 2
   }
 
   def part1(numbers: List[Int]): Int = {
@@ -31,6 +36,6 @@ object day7 extends Exercise {
 
   val parsedInput = parseInput
 
-  println(s"Part 1: ${part1(parsedInput)}")
-  println(s"Part 2: ${part2(parsedInput)}")
+  println(s"Part 1: ${timeIt {part1(parsedInput)}}")
+  println(s"Part 2: ${timeIt {part2(parsedInput)}}")
 }

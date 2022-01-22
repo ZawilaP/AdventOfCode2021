@@ -1,11 +1,16 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.annotation.tailrec
-import scala.io.Source._
+import scala.io.Source.fromFile
 
 object day2 extends Exercise {
 
   private def parseInput: Seq[Directions] = {
     val source = fromFile(path)
-    val input = source.getLines.toSeq.map{
+    val input = source.getLines.toSeq.map {
       case x if x.startsWith("forward") => Forward(x.last.asDigit)
       case x if x.startsWith("down") => Down(x.last.asDigit)
       case x if x.startsWith("up") => Up(x.last.asDigit)
@@ -17,8 +22,11 @@ object day2 extends Exercise {
   case class Distance(horizontal: Int, vertical: Int)
 
   sealed trait Directions
+
   case class Forward(length: Int) extends Directions
+
   case class Up(length: Int) extends Directions
+
   case class Down(length: Int) extends Directions
 
   private def calculatePosition(directions: Seq[Directions]): Distance = {
@@ -34,11 +42,10 @@ object day2 extends Exercise {
       }
     }
 
-    helper(0,0, directions)
+    helper(0, 0, directions)
   }
 
   def calculateTotalDistance(distance: Distance): Int = distance.horizontal * distance.vertical
-
 
 
   def calculateAimedPosition(directions: Seq[Directions]): Distance = {
@@ -67,6 +74,6 @@ object day2 extends Exercise {
 
   val parsedInput = parseInput
 
-  println(s"Part 1: ${part1(parsedInput)}")
-  println(s"Part 2: ${part2(parsedInput)}")
+  println(s"Part 1: ${timeIt {part1(parsedInput)}}")
+  println(s"Part 2: ${timeIt {part2(parsedInput)}}")
 }

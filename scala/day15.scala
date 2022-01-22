@@ -1,6 +1,7 @@
 package solutions
 
 import commons.Exercise
+import commons.Time.timeIt
 
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
@@ -37,7 +38,7 @@ object day15 extends Exercise {
       val (width, height) = size
       List.tabulate(xTimes, yTimes)((x, y) =>
         elements.toSeq.map(el =>
-          Field(x * width + el._1.row, y * height + el._1.col) -> (1 + (el._2 -1 + x + y) % 9)
+          Field(x * width + el._1.row, y * height + el._1.col) -> (1 + (el._2 - 1 + x + y) % 9)
         )).flatten.flatten.toMap
     }
 
@@ -72,6 +73,6 @@ object day15 extends Exercise {
 
   val input = parseInput
 
-  println(s"Part 1: ${part1(input)}") // 447
-  println(s"Part 2: ${part2(input)}") // 2825
+  println(s"Part 1: ${timeIt {part1(input)}}") // 447
+  println(s"Part 2: ${timeIt {part2(input)}}") // 2825
 }

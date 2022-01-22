@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.io.Source.fromFile
 
 object day5 extends Exercise {
@@ -46,6 +51,6 @@ object day5 extends Exercise {
   val part1 = calculateCount(parsedInput, straight = true)
   val part2 = calculateCount(parsedInput, straight = false)
 
-  println(s"Part 1: $part1")
-  println(s"Part 2: $part2")
+  println(s"Part 1: ${timeIt {part1}}")
+  println(s"Part 2: ${timeIt {part2}}")
 }

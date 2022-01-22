@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 
@@ -38,16 +43,16 @@ object day11 extends Exercise {
 
     @tailrec
     def computeFields(fields: Fields, count: Int, acc: List[Fields]): List[Fields] = {
-        if (count == 0) acc
-        else computeFields(fields, count - 1, acc.prepended(getNextFields(acc.head)))
+      if (count == 0) acc
+      else computeFields(fields, count - 1, acc.prepended(getNextFields(acc.head)))
     }
 
     @tailrec
     def indexWhenAllFlash(fields: Fields, steps: Int): Int = {
-        if (fields.values.forall(_ == 0)) steps
-        else {
-          indexWhenAllFlash(getNextFields(fields), steps + 1)
-        }
+      if (fields.values.forall(_ == 0)) steps
+      else {
+        indexWhenAllFlash(getNextFields(fields), steps + 1)
+      }
     }
   }
 
@@ -58,7 +63,7 @@ object day11 extends Exercise {
   case class Field(row: Int, col: Int) {
     def neighbours: Neighbours = {
       Neighbours(Field(row, col - 1), Field(row, col + 1), Field(row + 1, col), Field(row - 1, col),
-        Field(row + 1, col +1), Field(row + 1, col - 1), Field(row -1, col + 1), Field(row - 1, col - 1))
+        Field(row + 1, col + 1), Field(row + 1, col - 1), Field(row - 1, col + 1), Field(row - 1, col - 1))
     }
   }
 
@@ -74,6 +79,6 @@ object day11 extends Exercise {
 
   val input = parseInput
 
-  println(s"Part 1: ${part1(input)}")
-  println(s"Part 2: ${part2(input)}")
+  println(s"Part 1: ${timeIt {part1(input)}}")
+  println(s"Part 2: ${timeIt {part2(input)}}")
 }

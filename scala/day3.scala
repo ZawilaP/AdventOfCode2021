@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import java.lang.Integer.parseInt
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
@@ -6,8 +11,10 @@ object day3 extends Exercise {
 
   private def parseInput: Vector[Vector[Bit]] = {
     val source = fromFile(path)
-    val input = source.getLines().toVector.transpose.map(_.map{case '1' => One
-    case '0' => Zero})
+    val input = source.getLines().toVector.transpose.map(_.map {
+      case '1' => One
+      case '0' => Zero
+    })
     source.close()
     input
   }
@@ -26,7 +33,7 @@ object day3 extends Exercise {
 
   def part1(transposed: Vector[Vector[Bit]]): Int = {
     val length = transposed.head.length / 2
-    val gamma = transposed.map(_.count(_ == One)).map{
+    val gamma = transposed.map(_.count(_ == One)).map {
       case num if num > length => One
       case _ => Zero
     }
@@ -52,7 +59,7 @@ object day3 extends Exercise {
         val charToFilter = rating match {
           case Oxygen if oneCount == zeroCount || oneCount > length => Zero
           case Oxygen => One
-          case CO2 if oneCount == zeroCount || oneCount > length  => One
+          case CO2 if oneCount == zeroCount || oneCount > length => One
           case CO2 => Zero
         }
         val filtered = transposedInput.transpose.filterNot(row => row(pointer) == charToFilter).transpose
@@ -65,6 +72,6 @@ object day3 extends Exercise {
 
   val input = parseInput
 
-  println(s"Part 1: ${part1(input)}")
-  println(s"Part 2: ${part2(input)}")
+  println(s"Part 1: ${timeIt {part1(input)}}")
+  println(s"Part 2: ${timeIt {part2(input)}}")
 }

@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 
@@ -29,6 +34,6 @@ object day6 extends Exercise {
   val part1 = calculatePopulation(parsedInput, 80)
   val part2 = calculatePopulation(parsedInput, 256)
 
-  println(s"Part 1: $part1")
-  println(s"Part 2: $part2")
+  println(s"Part 1: ${timeIt {part1}}")
+  println(s"Part 2: ${timeIt {part2}}")
 }

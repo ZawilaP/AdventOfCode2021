@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 
@@ -26,6 +31,7 @@ object day13 extends Exercise {
   sealed trait Instruction {
     def fold(dots: Dots): Dots
   }
+
   case class Vertical(value: Int) extends Instruction {
     def fold(dots: Dots): Dots = {
       val filteredSet = dots.filter(dot => dot.y > value)
@@ -33,6 +39,7 @@ object day13 extends Exercise {
       dots -- filteredSet ++ mappedSet
     }
   }
+
   case class Horizontal(value: Int) extends Instruction {
     def fold(dots: Dots): Dots = {
       val filteredSet = dots.filter(dot => dot.x > value)
@@ -46,8 +53,8 @@ object day13 extends Exercise {
 
   implicit class DotsVisualize(dots: Dots) {
     def display: String =
-      (dots.map(_.x).min to dots.map(_.x).max).map{row =>
-        (dots.map(_.y).min to dots.map(_.y).max).map{col =>
+      (dots.map(_.x).min to dots.map(_.x).max).map { row =>
+        (dots.map(_.y).min to dots.map(_.y).max).map { col =>
           if (dots.contains(Dot(row, col))) 'X' else ' '
         }.mkString
       }.mkString("\n")
@@ -62,11 +69,11 @@ object day13 extends Exercise {
   }
 
   private def part1(input: Input): Int = input.instructions.head.fold(input.dots).size
+
   private def part2(input: Input): String = "\n" + input.executeInstructions.display
 
   val input = parseInput
 
-  println(s"Part 1: ${part1(input)}")
-  println(s"Part 2: ${part2(input)}")
-
+  println(s"Part 1: ${timeIt {part1(input)}}")
+  println(s"Part 2: ${timeIt {part2(input)}}")
 }

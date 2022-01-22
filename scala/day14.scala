@@ -1,6 +1,11 @@
+package solutions
+
+import cats.implicits._
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
-import cats.implicits._
 
 object day14 extends Exercise {
 
@@ -68,6 +73,6 @@ object day14 extends Exercise {
   private def part1(input: Input): Long = input.solve(10)
   private def part2(input: Input): Long = input.solve(40)
 
-  println(s"Part 1: ${part1(input)}")
-  println(s"Part 2: ${part2(input)}")
+  println(s"Part 1: ${timeIt {part1(input)}}")
+  println(s"Part 2: ${timeIt {part2(input)}}")
 }

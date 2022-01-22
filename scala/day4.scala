@@ -1,3 +1,8 @@
+package solutions
+
+import commons.Exercise
+import commons.Time.timeIt
+
 import scala.annotation.tailrec
 import scala.io.Source.fromFile
 
@@ -74,6 +79,6 @@ object day4 extends Exercise {
 
   val (numbers, boards) = parseInput
 
-  println(s"Part 1: ${part1(numbers, boards)}")
-  println(s"Part 2: ${part2(numbers, boards)}")
+  println(s"Part 1: ${timeIt {part1(numbers, boards)}}")
+  println(s"Part 2: ${timeIt {part2(numbers, boards)}}")
 }
