@@ -18,7 +18,7 @@ object day17 extends Exercise {
 
   case class Point(x: Int, y: Int) {
     private def +(other: Point): Point = Point(x + other.x, y + other.y)
-    private def step: Point = Point(Math.max(x - 1, 0), y - 1)
+    private def step: Point = Point(Math.max(x - 1, 0), y - 1) // because X is always positive
 
     def iterate: Iterator[Point] = {
       Iterator.iterate((Point(0, 0), this))(acc => (acc._1 + acc._2, acc._2.step)).map(_._1)
