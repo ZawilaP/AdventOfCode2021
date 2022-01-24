@@ -10,9 +10,9 @@ object day6 extends Exercise {
 
   private def parseInput: PopulationCounts = {
     val source = fromFile(path)
-
     val parsedSource = source.getLines().flatMap(_.split(",")).map(_.toInt).toList
     source.close()
+
     val valueCounts = parsedSource.groupMapReduce(identity)(_ => 1L)(_ + _).withDefaultValue(0L)
     PopulationCounts(valueCounts(0), valueCounts(1), valueCounts(2), valueCounts(3), valueCounts(4),
       valueCounts(5), valueCounts(6), valueCounts(7), valueCounts(8))
@@ -26,7 +26,8 @@ object day6 extends Exercise {
 
   @tailrec
   private def calculatePopulation(fishes: PopulationCounts, days: Int): Long = {
-    if (days == 0) fishes.sum else calculatePopulation(fishes.update, days - 1)
+    if (days == 0) fishes.sum
+    else calculatePopulation(fishes.update, days - 1)
   }
 
   val parsedInput = parseInput
