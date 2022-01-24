@@ -23,6 +23,7 @@ object day13 extends Exercise {
       }
     })
     source.close()
+
     Input(parsedDots, parsedInstructions)
   }
 
@@ -69,7 +70,6 @@ object day13 extends Exercise {
   }
 
   private def part1(input: Input): Int = input.instructions.head.fold(input.dots).size
-
   private def part2(input: Input): String = "\n" + input.executeInstructions.display
 
   val input = parseInput

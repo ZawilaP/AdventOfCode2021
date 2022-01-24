@@ -17,6 +17,8 @@ object day11 extends Exercise {
         (height, col) <- line.zipWithIndex
       } yield Field(row, col) -> height.asDigit
     }.toMap
+    source.close()
+
     fields
   }
 
@@ -50,9 +52,7 @@ object day11 extends Exercise {
     @tailrec
     def indexWhenAllFlash(fields: Fields, steps: Int): Int = {
       if (fields.values.forall(_ == 0)) steps
-      else {
-        indexWhenAllFlash(getNextFields(fields), steps + 1)
-      }
+      else indexWhenAllFlash(getNextFields(fields), steps + 1)
     }
   }
 
@@ -69,13 +69,8 @@ object day11 extends Exercise {
 
   import Fields._
 
-  private def part1(input: Fields): Int = {
-    computeFields(input, 100, List(input)).map(_.values.count(_ == 0)).sum
-  }
-
-  private def part2(input: Fields): Int = {
-    indexWhenAllFlash(input, 0)
-  }
+  private def part1(input: Fields): Int = computeFields(input, 100, List(input)).map(_.values.count(_ == 0)).sum
+  private def part2(input: Fields): Int = indexWhenAllFlash(input, 0)
 
   val input = parseInput
 

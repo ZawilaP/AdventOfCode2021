@@ -37,9 +37,7 @@ object day14 extends Exercise {
       @tailrec
       def helper(letters: String, acc: PairCount): PairCount = {
         if (letters.length < 2) acc
-        else {
-          helper(letters.tail, acc combine Map(letters.take(2) -> 1L))
-        }
+        else helper(letters.tail, acc combine Map(letters.take(2) -> 1L))
       }
 
       helper(letters, Map.empty)

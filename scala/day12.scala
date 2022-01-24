@@ -13,6 +13,7 @@ object day12 extends Exercise {
     val source = fromFile(path)
     val parsedInput = source.getLines.map(_.split("-").map(Cave)).map(x => Passage(x.head, x.tail.head)).toSet
     source.close()
+
     parsedInput
   }
 
@@ -57,7 +58,6 @@ object day12 extends Exercise {
   type Neighbours = Set[Cave]
 
   private def part1(input: Graph): Int = findPath(input, Set(List(Cave("start"))), OneVisit).size
-
   private def part2(input: Graph): Int = findPath(input, Set(List(Cave("start"))), TwoVisits).size
 
   val input = parseInput
