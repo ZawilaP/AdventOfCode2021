@@ -10,7 +10,10 @@ object day1 extends Exercise {
 
   private def parseInput: Seq[Int] = {
     val source = fromFile(path)
-    source.getLines.toSeq.map(_.toInt)
+    val input = source.getLines.toSeq.map(_.toInt)
+    source.close()
+
+    input
   }
 
   private def countDepth(measurements: Seq[Int]): Int = {
