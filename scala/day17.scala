@@ -26,13 +26,22 @@ object day17 extends Exercise {
   }
 
   case class TargetArea(minX: Int, maxX: Int, minY: Int, maxY: Int) {
+    /**
+     * Why, can we use sum formula for sum of consecutive natural numbers?
+     * If we look at the example here:
+     * https://adventofcode.com/2021/day/17
+     *
+     * For the given example, maximal height for yVelocity=9 equals 9*10/2.
+     * Furthermore if we start with yVelocity = v, the probe will reach point y=0, with velocity equal -(v+1).
+     * Therefore if we want to minimize -(v+1) = minY, we get that it is minimized by v = -minY-1
+     */
     def highestY: Int = minY * (minY + 1) / 2
     def hitCount: Int = trajectories.count(intersection)
 
     private def trajectories: Seq[Iterator[Point]] = for {
-      vx <- Range(1, maxX + 1)
-      vy <- Range(minY, -minY + 1)
-      points = Point(vx, vy).iterate.takeWhile(point => point.x <= maxX && point.y >= minY)
+      xVelocity <- Range(1, maxX + 1)
+      yVelocity <- Range(minY, -minY + 1)
+      points = Point(xVelocity, yVelocity).iterate.takeWhile(point => point.x <= maxX && point.y >= minY)
     } yield points
 
     private def intersection(trajectory: Iterator[Point]): Boolean = {
