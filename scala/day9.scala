@@ -17,6 +17,7 @@ object day9 extends Exercise {
         (height, col) <- line.zipWithIndex
       } yield Field(row, col) -> height.asDigit
     }.toMap
+    source.close()
 
     fields
   }

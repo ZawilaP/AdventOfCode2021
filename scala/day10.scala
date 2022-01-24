@@ -38,6 +38,7 @@ object day10 extends Exercise {
     val source = fromFile(path)
     val input = source.getLines().toSeq.map(helper(_, List.empty[Char]))
     source.close()
+
     Input(filter[Valid](input), filter[Invalid](input))
   }
 
@@ -52,10 +53,7 @@ object day10 extends Exercise {
     '{' -> 3L,
     '<' -> 4L)
 
-  private def part1(input: Seq[Invalid]): Int = {
-    input.map(x => part1Scoring(x.value)).sum
-  }
-
+  private def part1(input: Seq[Invalid]): Int = input.map(x => part1Scoring(x.value)).sum
   private def part2(input: Seq[Valid]): Long = {
     val scores = input.map(_.value.foldLeft(0L)((acc, char) => acc * 5L + part2Scoring(char))).sorted
     scores(scores.length / 2)

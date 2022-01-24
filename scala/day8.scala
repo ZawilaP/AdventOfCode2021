@@ -13,6 +13,7 @@ object day8 extends Exercise {
       case Array(l, r) => TrainAndTest(l.split(" ").toSeq, r.split(" ").toSeq)
     }
     source.close()
+
     parsed
   }
 

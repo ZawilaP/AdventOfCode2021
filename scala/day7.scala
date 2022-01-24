@@ -12,6 +12,7 @@ object day7 extends Exercise {
     val source = fromFile(path)
     val parsedSource = source.getLines.next().split(",").map(_.toInt).toList
     source.close()
+
     parsedSource
   }
 
@@ -20,18 +21,16 @@ object day7 extends Exercise {
     sorted(floor(numbers.length / 2).toInt)
   }
 
-  def gaussSum(num: Int): Int = {
-    num * (num + 1) / 2
-  }
+  def intCumSum(num: Int): Int = num * (num + 1) / 2
 
-  def part1(numbers: List[Int]): Int = {
+  private def part1(numbers: List[Int]): Int = {
     val med = median(numbers)
     numbers.foldLeft(0)((acc, curr) => acc + Math.abs(curr - med))
   }
 
-  def part2(numbers: List[Int]): Int = {
+  private def part2(numbers: List[Int]): Int = {
     val avg = floor(numbers.sum.toDouble / numbers.length.toDouble).toInt
-    numbers.foldLeft(0)((acc, curr) => acc + gaussSum(abs(curr - avg)))
+    numbers.foldLeft(0)((acc, curr) => acc + intCumSum(abs(curr - avg)))
   }
 
   val parsedInput = parseInput
