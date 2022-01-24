@@ -12,6 +12,7 @@ object day17 extends Exercise {
     val input = source.getLines().toList.head
     val coordinates = input.split(": ").last.split(", ")
       .flatMap(_.drop(2).split("\\.\\.").map(_.toInt))
+    source.close()
 
     TargetArea(coordinates(0), coordinates(1), coordinates(2), coordinates(3))
   }
@@ -19,10 +20,7 @@ object day17 extends Exercise {
   case class Point(x: Int, y: Int) {
     private def +(other: Point): Point = Point(x + other.x, y + other.y)
     private def step: Point = Point(Math.max(x - 1, 0), y - 1) // because X is always positive
-
-    def iterate: Iterator[Point] = {
-      Iterator.iterate((Point(0, 0), this))(acc => (acc._1 + acc._2, acc._2.step)).map(_._1)
-    }
+    def iterate: Iterator[Point] = Iterator.iterate((Point(0, 0), this))(acc => (acc._1 + acc._2, acc._2.step)).map(_._1)
   }
 
   case class TargetArea(minX: Int, maxX: Int, minY: Int, maxY: Int) {

@@ -37,12 +37,12 @@ object day16 extends Exercise {
     def size: Int
     def evaluate: Long
   }
-  
+
   case class Literal(version: Long, value: Long, size: Int) extends Packet {
     def sum: Long = version
     def evaluate: Long = value
   }
-  
+
   object Literal {
     def apply(data: String, version: Long): Option[Literal] = {
       val (ones, zeros) = data.grouped(5).toList.span(_.head == '1')
@@ -52,7 +52,7 @@ object day16 extends Exercise {
       } yield Literal(version, binaryToDecimal(value), size)
     }
   }
-  
+
   case class Operator(version: Long, typeId: Long, packets: List[Packet], size: Int) extends Packet {
     def sum: Long = version + packets.map(_.sum).sum
     def evaluate: Long = (typeId, packets) match {
@@ -65,7 +65,7 @@ object day16 extends Exercise {
       case (7, List(x, y)) => if (x.evaluate == y.evaluate) 1 else 0
     }
   }
-  
+
   object Operator {
     def apply(data: String, version: Long, typeId: Long, lengthId: Int): Option[Operator] = {
       val packetInfo = lengthId match {
