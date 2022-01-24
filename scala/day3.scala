@@ -16,6 +16,7 @@ object day3 extends Exercise {
       case '0' => Zero
     })
     source.close()
+
     input
   }
 
@@ -42,16 +43,14 @@ object day3 extends Exercise {
       case Zero => One
     }
 
-    parseInt(gamma.mkString, 2) *
-      parseInt(epsilon.mkString, 2)
+    parseInt(gamma.mkString, 2) * parseInt(epsilon.mkString, 2)
   }
 
   private def part2(transposed: Vector[Vector[Bit]]): Int = {
     @tailrec
     def helper(transposedInput: Vector[Vector[Bit]], rating: Rating, pointer: Int = 0): Int = {
-      if (transposedInput.forall(_.length == 1)) {
-        Integer.parseInt(transposedInput.flatten.mkString, 2)
-      } else {
+      if (transposedInput.forall(_.length == 1)) Integer.parseInt(transposedInput.flatten.mkString, 2)
+      else {
         val column = transposedInput(pointer)
         val length = column.length / 2
         val oneCount = column.count(_ == One)
