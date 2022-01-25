@@ -29,18 +29,11 @@ object day9 extends Exercise {
   }
 
   case class Field(row: Int, col: Int) {
-    private def neighbours: Neighbours = {
-      Neighbours(Field(row, col - 1), Field(row, col + 1), Field(row + 1, col), Field(row - 1, col))
-    }
-
-    def belowNeighbours(fields: Fields): Boolean = {
-      neighbours.toSet.forall(this.belowNeighbour(_, fields))
-    }
+    private def neighbours: Neighbours = Neighbours(Field(row, col - 1), Field(row, col + 1), Field(row + 1, col), Field(row - 1, col))
+    def belowNeighbours(fields: Fields): Boolean = neighbours.toSet.forall(this.belowNeighbour(_, fields))
 
     private def belowNeighbour(neighbour: Field, fields: Fields): Boolean = {
-      if (fields.contains(neighbour)) {
-        fields(this) < fields(neighbour)
-      }
+      if (fields.contains(neighbour)) fields(this) < fields(neighbour)
       else true
     }
 
